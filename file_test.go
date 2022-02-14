@@ -268,17 +268,18 @@ func TestFile_Section(t *testing.T) {
 		})
 	})
 
-	t.Run("get default section in lower case with insensitive load", func(t *testing.T) {
-		f, err := InsensitiveLoad([]byte(`
-[default]
-NAME = ini
-VERSION = v1`))
-		require.NoError(t, err)
-		require.NotNil(t, f)
-
-		assert.Equal(t, "ini", f.Section("").Key("name").String())
-		assert.Equal(t, "v1", f.Section("").Key("version").String())
-	})
+	// This test is no longer valid, because default section can be in standalone section
+	// 	t.Run("get default section in lower case with insensitive load", func(t *testing.T) {
+	// 		f, err := InsensitiveLoad([]byte(`
+	// [default]
+	// NAME = ini
+	// VERSION = v1`))
+	// 		require.NoError(t, err)
+	// 		require.NotNil(t, f)
+	//
+	// 		assert.Equal(t, "ini", f.Section("").Key("name").String())
+	// 		assert.Equal(t, "v1", f.Section("").Key("version").String())
+	// 	})
 
 	t.Run("get sections after deletion", func(t *testing.T) {
 		f, err := Load([]byte(`
@@ -313,7 +314,10 @@ func TestFile_Sections(t *testing.T) {
 	require.NotNil(t, f)
 
 	secs := f.Sections()
-	names := []string{DefaultSection, "author", "package", "package.sub", "features", "types", "array", "note", "comments", "string escapes", "advance"}
+	names := []string{
+		DefaultSection, "author", "package", "package.sub", "features", "types", "array", "note", "comments",
+		"string escapes", "advance",
+	}
 	assert.Len(t, secs, len(names))
 	for i, name := range names {
 		assert.Equal(t, name, secs[i].Name())
@@ -344,7 +348,10 @@ func TestFile_SectionStrings(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, f)
 
-	assert.Equal(t, []string{DefaultSection, "author", "package", "package.sub", "features", "types", "array", "note", "comments", "string escapes", "advance"}, f.SectionStrings())
+	assert.Equal(t, []string{
+		DefaultSection, "author", "package", "package.sub", "features", "types", "array", "note", "comments",
+		"string escapes", "advance",
+	}, f.SectionStrings())
 }
 
 func TestFile_DeleteSection(t *testing.T) {

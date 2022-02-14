@@ -25,7 +25,7 @@ import (
 const (
 	// DefaultSection is the name of default section. You can use this constant or the string literal.
 	// In most of cases, an empty string is all you need to access the section.
-	DefaultSection = "__default_section"
+	DefaultSection = "DEFAULT_SECTION__PLACEHOLDER__"
 
 	// Maximum allowed depth when recursively substituting variable names.
 	depthValues = 99
